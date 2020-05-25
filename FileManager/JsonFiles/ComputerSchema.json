@@ -1,0 +1,31 @@
+﻿{
+  // Make schema official and viable:
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "id": "http://github.com",
+  "title": "Custom Cumputer",
+  "version": "1.0.0",
+  "type": "object",
+  "required": [ "brand", "price" ],
+  "properties": {
+    "brand": {
+      "type": "string",
+      "description": "Company where the computer is/was produced"
+    },
+    "price": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Purchase price of the computer"
+    },
+    "color": {
+      "enum": [ "Red", "Orange", "Yellow", "Green", "Blue", "Purple", "Brown", "Magenta", "Black", "Grey", "White", "Pink" ],
+      "default": "Grey",
+      "description": "Color of the computer"
+    },
+    "releaseYear": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Year of when the computer was released"
+    }
+
+  }
+}

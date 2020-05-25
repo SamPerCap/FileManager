@@ -1,0 +1,37 @@
+﻿<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="Computer">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Brand" type="xs:string" minOccurs="1"></xs:element>
+        <xs:element name="Color" type="colorType" ></xs:element>
+        <xs:element name="Price" type="priceType" minOccurs="1"></xs:element>
+        <xs:element name="ReleaseYear" type="xs:date"></xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <!-- OUR DEFINED TYPES-->
+  <xs:simpleType name="priceType">
+    <xs:restriction base="xs:double">
+      <xs:minExclusive value="0"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="colorType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Red" />
+      <xs:enumeration value="Orange" />
+      <xs:enumeration value="Yellow" />
+      <xs:enumeration value="Green" />
+      <xs:enumeration value="Blue" />
+      <xs:enumeration value="Purple" />
+      <xs:enumeration value="Brown" />
+      <xs:enumeration value="Magenta" />
+      <xs:enumeration value="Black" />
+      <xs:enumeration value="Grey" />
+      <xs:enumeration value="White" />
+      <xs:enumeration value="Pink" />
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

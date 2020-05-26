@@ -29,47 +29,54 @@ namespace FileManager
                     "\n1.- Json/XML string validator." +
                     "\n2.- Json/XML Writter.");
 
-                if (Console.ReadLine() == "1")
+
+                switch (Convert.ToInt32(Console.ReadLine()))
                 {
-                    Console.WriteLine("Please, choose what to do (integer):" +
+                    case 1:
+                        Console.WriteLine("Please, choose what to do (integer):" +
                   "\n1.- Validate with Json Schema." +
                   "\n2.- Validate with XML Schema.");
-                    ValidateInput(Console.ReadLine());
-                }
-                else if (Console.ReadLine() == "2")
-                {
-                    Console.WriteLine("Please, choose what to do (integer):" +
+                        ValidateInput(Convert.ToInt32(Console.ReadLine()));
+                        break;
+                    case 2:
+                        Console.WriteLine("Please, choose what to do (integer):" +
                   "\n1.- Json Writter." +
                   "\n2.- XML Writter.");
-
-                    GatherInformation(Convert.ToInt32(Console.ReadLine()), sw);
-                }
-                else
-                {
-                    Console.WriteLine("\nPlease try again \n");
+                        GatherInformation(Convert.ToInt32(Console.ReadLine()), sw);
+                        break;
+                    default:
+                        Console.WriteLine("\nPlease try again \n");
+                        break;
                 }
             }
         }
 
-        private static void ValidateInput(string option)
+        private static void ValidateInput(int option)
         {
-
-            Console.WriteLine("Paste your string below:\n");
-            string input = Console.Read().ToString();
-            if (option == "1")
+            Console.WriteLine("Write the file to validate");
+            switch (option)
             {
-                ValidateJson(input);
-            }
-            else if (option == "2")
-            {
-                ValidateXML(input);
+                case 1:
+                    foreach (var file in Directory.GetFiles("../../../JsonFiles/", "*.json"))
+                    {
+                        Console.WriteLine(file.Replace("../../../JsonFiles/", ""));
+                    }
+                    ValidateJson(Console.ReadLine());
+                    break;
+                case 2:
+                    foreach (var file in Directory.GetFiles("../../../XMLFiles/", "*.xml"))
+                    {
+                        Console.WriteLine(file.Replace("../../../XMLFiles/", ""));
+                    }
+                    ValidateXML(Console.ReadLine());
+                    break;
             }
         }
 
-        private static void ValidateJson(string input)
+        private static void ValidateJson(string filename)
         {
             JSchema schema = JSchema.Parse(File.ReadAllText("../../../JsonFiles/ComputerSchema.json"));
-            JObject jobject = JObject.Parse(input);
+            JObject jobject = JObject.Parse(File.ReadAllText("../../../JsonFiles/" + filename + ".json"));
 
             IList<string> validationEvents = new List<string>();
             if (jobject.IsValid(schema, out validationEvents))
@@ -79,7 +86,7 @@ namespace FileManager
             }
             else
             {
-                Console.WriteLine("\nYour doesn't match our schema: \n");
+                Console.WriteLine("\nYour json doesn't match our schema: \n");
                 foreach (string validationEvent in validationEvents)
                 {
                     Console.WriteLine(validationEvent);
@@ -87,33 +94,31 @@ namespace FileManager
             }
         }
 
-        private static void ValidateXML(string input)
+        static void ValidateXML(string filename)
         {
-
             XmlReader xmlReader = null;
-            //XmlDocument xmlDoc = new XmlDocument();
-            //xmlDoc.LoadXml(input);
             try
             {
-                byte[] byteArray = Encoding.ASCII.GetBytes(input);
-                MemoryStream stream = new MemoryStream(byteArray);
-                stream.Position = 2;
-
+                //Define the settings while reading the XML file
                 XmlReaderSettings settings = new XmlReaderSettings();
+                //XSD
                 settings.ValidationType = ValidationType.Schema;
-                settings.ValidationFlags |= System.Xml.Schema.XmlSchemaValidationFlags.ProcessSchemaLocation;
-                settings.ValidationFlags |= System.Xml.Schema.XmlSchemaValidationFlags.ReportValidationWarnings;
+                settings.ValidationFlags |= XmlSchemaValidationFlags.ProcessSchemaLocation;
+                settings.ValidationFlags |= XmlSchemaValidationFlags.ReportValidationWarnings;
                 settings.ValidationEventHandler += new System.Xml.Schema.ValidationEventHandler(ValidationCallback);
-                settings.Schemas.Add(null, XmlReader.Create("../../../XMLFiles/ComputerSchema.xml"));
+                settings.Schemas.Add(null, XmlReader.Create("../../../XMLFiles/ComputerSchema.xsd"));
 
-                xmlReader = XmlReader.Create(stream, settings);
+                //Validate file with given settings
+                xmlReader = XmlReader.Create("../../../XMLFiles/" + filename + ".xml", settings);
 
-                while (xmlReader.Read()) { }
+                while (xmlReader.Read())
+                {
+                }
                 Console.WriteLine("\nYour XML matches our schema! \n");
             }
             catch (Exception e)
             {
-                Console.WriteLine("Error: " + e.Message + e.StackTrace);
+                Console.WriteLine("Error: " + e.Message);
             }
             finally
             {
@@ -126,7 +131,7 @@ namespace FileManager
 
         private static void ValidationCallback(object sender, System.Xml.Schema.ValidationEventArgs e)
         {
-            Console.WriteLine("Your doesn't match our schema:");
+            Console.WriteLine("Your XML doesn't match our schema:");
             throw new Exception("Error: " + e.Message);
         }
 

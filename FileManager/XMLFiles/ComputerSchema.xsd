@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  
+  <xs:element name="Computer">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Brand" type="xs:string" minOccurs="1"/>
+        <xs:element name="Color" type="xs:string" minOccurs="1"/>
+        <xs:element name="Price" type="xs:integer" minOccurs="1"/>
+        <xs:element name="ReleaseYear" type="xs:date" minOccurs="1"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

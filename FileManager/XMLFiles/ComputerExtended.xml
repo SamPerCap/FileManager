@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Computer
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="ComputerSchemaExtended.xsd">
+  <Brand>HP</Brand>
+  <Color>Grey</Color>
+  <Price>3</Price>
+  <ReleaseYear>2012-12-13</ReleaseYear>
+  <FactoryInfo>
+    <CountryInfo>
+      <CountryName>Denmark</CountryName>
+      <Continent>Europe</Continent>
+      <Hemisphere>North</Hemisphere>
+    </CountryInfo>
+    <FactoryName>HPFactory</FactoryName>
+  </FactoryInfo>
+</Computer>

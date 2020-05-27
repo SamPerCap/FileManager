@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <Computer 
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:noNamespaceSchemaLocation="ComputerSchema.xml">
+  xsi:noNamespaceSchemaLocation="ComputerSchema.xsd">
   <Brand>Asus</Brand>
   <Color>Black</Color>
   <Price>5</Price>

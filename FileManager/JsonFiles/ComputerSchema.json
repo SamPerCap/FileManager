@@ -5,7 +5,7 @@
   "title": "Custom Cumputer",
   "version": "1.0.0",
   "type": "object",
-  "required": [ "brand", "price" ],
+  "required": [ "brand", "price", "color", "releaseYear" ],
   "properties": {
     "brand": {
       "type": "string",

@@ -1,0 +1,85 @@
+﻿{
+  // Make schema official and viable:
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "id": "http://github.com",
+  "title": "Custom Cumputer",
+  "version": "1.0.0",
+  "type": "object",
+  "required": [ "brand", "price", "releaseYear", "factoryInfo" ],
+  "properties": {
+    "brand": {
+      "type": "string",
+      "description": "Company where the computer is/was produced"
+    },
+    "price": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Purchase price of the computer"
+    },
+    "color": {
+      "enum": [ "Red", "Orange", "Yellow", "Green", "Blue", "Purple", "Brown", "Magenta", "Black", "Grey", "White", "Pink" ],
+      "default": "Grey",
+      "description": "Color of the computer"
+    },
+    "releaseYear": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Year of when the computer was released"
+    },
+    "factoryInfo": {
+      "$ref": "#/definitions/factoryInfo"
+    }
+  },
+
+  "definitions": {
+
+    "factoryInfo": {
+      "type": "object",
+      "required": [ "countryInfo", "factoryName" ],
+      "properties": {
+        "factoryName": {
+          "type": "string",
+          "description": "Name of the factory"
+        },
+
+        "countryInfo": {
+          "allOf": [
+            {
+              "properties": { "type": { "enum": [ "residential", "business" ] } },
+              "required": [ "type" ]
+            },
+            { "$ref": "#/definitions/countryInfo" }
+          ]
+        }
+
+      }
+    },
+
+    "countryInfo": {
+      "type": "object",
+      "required": [ "continent", "countryName", "hemisphere" ],
+      "properties": {
+        "countryName": {
+          "type": "string",
+          "description": "Name of the country"
+        },
+        "continent": {
+          "enum": [ "Europe", "North America", "South America", "Asia", "Africa", "Austrelia", "North Pole" ],
+          "description": "Continent that the country is in"
+        },
+        "hemisphere": { "$ref": "#/definitions/hemisphere" }
+      }
+    },
+
+    "hemisphere": {
+      "type": "object",
+      "required": [ "hemisphere" ],
+      "properties": {
+        "hemisphere": {
+          "enum": [ "North", "South" ]
+        }
+      }
+    }
+
+  }
+}

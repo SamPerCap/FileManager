@@ -1,0 +1,17 @@
+﻿{
+  "brand": "HP",
+  "price": 1300,
+  "releaseYear": "1998-09-12T20:04:05Z",
+
+  "factoryInfo": {
+    "factoryName": "Samsung",
+    "countryInfo": {
+      "type": "business",
+      "continent": "Austrelia",
+      "countryName": "Austrelia",
+      "hemisphere": {
+        "hemisphere": "South"
+      }
+    }
+  }
+}
